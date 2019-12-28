@@ -151,6 +151,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.msm8953
 
+# BASH
+PRODUCT_PACKAGES += \
+	bashrc \
+    bash.bashrc
+
 # Bootdebi
 PRODUCT_PACKAGES += \
 	bootdebi \
@@ -163,5 +168,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/bin/hostapd:system/bin/hw/hostapd \
     $(LOCAL_PATH)/wifi/bin/wpa_supplicant:system/bin/hw/wpa_supplicant \
     $(LOCAL_PATH)/prebuilts/light/android.hardware.light@2.0-service:system/bin/hw/android.hardware.light@2.0-service \
-    $(LOCAL_PATH)/prebuilts/light/android.hardware.light@2.0-service.rc:system/etc/init/android.hardware.light@2.0-service.rc
+    $(LOCAL_PATH)/prebuilts/light/android.hardware.light@2.0-service.rc:system/etc/init/android.hardware.light@2.0-service.rc \
+    $(LOCAL_PATH)/rootdir/etc/bash.bashrc:system/etc/bash.bashrc
 

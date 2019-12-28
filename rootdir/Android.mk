@@ -21,6 +21,22 @@ LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)/init
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE       := bashrc
+LOCAL_MODULE_TAGS  := optional eng
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES    := etc/bash/bashrc
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)/bash
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE       := bashrc.bashrc
+LOCAL_MODULE_TAGS  := optional eng
+LOCAL_MODULE_CLASS := ETC
+LOCAL_SRC_FILES    := etc/bash.bashrc
+LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)/
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE       := bootdebi
 LOCAL_MODULE_TAGS  := optional eng
 $(shell mkdir -p $(TARGET_OUT_ETC)/bootdebi/)
