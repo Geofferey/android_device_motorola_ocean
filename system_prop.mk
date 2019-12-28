@@ -122,3 +122,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.timed.enable=true
 
+# Build user
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.rr.build.user=geofferey@xda-devs
+
