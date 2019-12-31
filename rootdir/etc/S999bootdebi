@@ -1,0 +1,26 @@
+#!/system/xbin/bash
+
+bootdebi_dir=/system/etc/bootdebi
+
+if [[ ! -x $bootdebi_dir/scripts/bootdebi ]] && [[ ! -e $bootdebi_dir/.initialized ]]; then
+
+    /system/bin/mount -o rw,remount /system
+    /system/bin/mount -o rw,remount /
+
+    chmod -R 0500 $bootdebi_dir/scripts
+    touch $bootdebi_dir/.initialized
+
+    /system/bin/mount -o ro,remount /system
+    /system/bin/mount -o ro,remount /
+
+fi   
+
+until [[ $(getprop sys.boot_completed) = 1 ]] && [[ $(getprop dev.bootcomplete) = 1 ]] && [[ $(getprop service.bootanim.exit) = 1 ]] && [[ $(getprop init.svc.bootanim) = stopped ]]; do
+
+    sleep 1
+
+done
+
+$bootdebi_dir/scripts/bootdebi start
+
+exit 0

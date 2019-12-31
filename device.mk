@@ -151,6 +151,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.msm8953
 
+# Bootdebi
+PRODUCT_PACKAGES += \
+	bootdebi \
+    S999bootdebi
+
+# MISC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
@@ -158,4 +164,4 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/bin/wpa_supplicant:system/bin/hw/wpa_supplicant \
     $(LOCAL_PATH)/prebuilts/light/android.hardware.light@2.0-service:system/bin/hw/android.hardware.light@2.0-service \
     $(LOCAL_PATH)/prebuilts/light/android.hardware.light@2.0-service.rc:system/etc/init/android.hardware.light@2.0-service.rc
-    
+
