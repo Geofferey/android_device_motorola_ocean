@@ -360,13 +360,26 @@ if ! $busybox mountpoint -q $chroot_dir/dev; then
 	fi
 
 	$busybox mount -r -o bind /system $chroot_dir/system
-#	$busybox mount -r -o bind /persist $chroot_dir/persist
+
+	$busybox mount $chroot_dir/system -o remount,ro,bind
 
 	if [ ! -d $chroot_dir/data ]; then
 		mkdir $chroot_dir/data
 	fi
 
 	$busybox mount -r -o bind /data $chroot_dir/data
+	
+    $busybox mount $chroot_dir/data -o remount,ro,bind
+    
+    if [ ! -d $chroot_dir/mnt/media/0 ]; then
+    
+        mkdir -p $chroot_dir/mnt/media/0
+        
+    fi
+    
+    chown aid_media_rw:aid_media_rw $chroot_dir/mnt/media/0
+    
+    $busybox mount -r -o bind /data/media/0 $chroot_dir/mnt/media/0
 
 	# enable depmod/modprobe support in rootfs
 	$busybox mount -r -o bind /system/lib/modules $chroot_dir/lib/modules
@@ -388,7 +401,7 @@ if ! $busybox mountpoint -q $chroot_dir/dev; then
 
 	# SETUP TMPFS MOUNTS (HOPE THIS IS OK)
 	$busybox mount -t tmpfs -o remount,size=32m $chroot_dir/dev
-	$busybox mount -t tmpfs tmpfs -o size=128m $chroot_dir/dev/shm
+	$busybox mount -t tmpfs tmpfs -o size=256m $chroot_dir/dev/shm
 	$busybox mount -t tmpfs tmpfs -o size=128m $chroot_dir/tmp
 	$busybox mount -t tmpfs tmpfs -o size=32m $chroot_dir/run
 	$busybox mount -t tmpfs tmpfs -o size=32m $chroot_dir/var/tmp
@@ -401,7 +414,8 @@ if ! $busybox mountpoint -q $chroot_dir/dev; then
 
 	# SET 250MB TO ALLOW POSTGRESQL #
 	$busybox sysctl -w kernel.shmmax=268435456
-
+    $busybox sysctl -w kernel.shmall=268435456
+	
 	# NETWORK SETTINGS #
 
 	if [[ -z $HOSTNAME ]]; then
@@ -410,7 +424,7 @@ if ! $busybox mountpoint -q $chroot_dir/dev; then
 
 	fi
 
-	$busybox sysctl -w net.ipv4.ip_forward=1
+#	$busybox sysctl -w net.ipv4.ip_forward=1
 	echo "127.0.0.1		 localhost $HOSTNAME" > $chroot_dir/etc/hosts
 	echo "::1				 localhost ip6-localhost ip6-loopback" >> $chroot_dir/etc/hosts
 	echo $HOSTNAME > $chroot_dir/proc/sys/kernel/hostname
